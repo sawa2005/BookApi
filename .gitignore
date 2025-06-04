@@ -1,0 +1,30 @@
+## Build and Debug folders
+bin/
+obj/
+out/
+
+## User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## VS Code settings
+.vscode/
+
+## Logs and local data
+*.log
+*.db
+*.sqlite
+books.db
+
+## EF Core Migrations Snapshots (optional)
+Migrations/*Snapshot.cs
+
+## Secrets and config overrides
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.json.user
+
+## Other generated or cache folders
+**/Properties/launchSettings.json
