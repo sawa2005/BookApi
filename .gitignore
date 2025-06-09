@@ -1,16 +1,6 @@
 ## Build and Debug folders
-bin/
-obj/
-out/
-
-## User-specific files
-*.user
-*.suo
-*.userosscache
-*.sln.docstates
-
-## VS Code settings
-.vscode/
+server/bin/
+server/obj/
 
 ## Logs and local data
 *.log
@@ -18,11 +8,61 @@ out/
 *.sqlite
 books.db
 
-## EF Core Migrations Snapshots (optional)
-Migrations/*Snapshot.cs
+# Frontend build files
+/client/node_modules/
+client/dist/
 
 ## Secrets and config overrides
+.env
 appsettings*.json
 
 ## Other generated or cache folders
 **/Properties/launchSettings.json
+
+# ANGULAR generated gitignore file
+
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+# Ignore Angular build output and temp folders inside /client
+/client/dist/
+/client/tmp/
+/client/out-tsc/
+/client/bazel-out/
+
+# Ignore node modules inside /client
+/client/node_modules/
+
+# Ignore npm/yarn logs in /client
+/client/npm-debug.log
+/client/yarn-error.log
+
+# IDEs and editors (for any IDE, general)
+/.idea/
+/.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code (keep some settings tracked)
+client/.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Miscellaneous
+/client/.angular/cache
+/client/.sass-cache/
+/client/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/client/typings
+
+# System files
+/client/.DS_Store
+/client/Thumbs.db
+
