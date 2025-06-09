@@ -22,9 +22,7 @@ books.db
 Migrations/*Snapshot.cs
 
 ## Secrets and config overrides
-appsettings.Development.json
-appsettings.Local.json
-appsettings.*.json.user
+appsettings*.json
 
 ## Other generated or cache folders
 **/Properties/launchSettings.json
