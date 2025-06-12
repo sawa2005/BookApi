@@ -1,1 +1,6 @@
-<p>home works!</p>
+<h2>Books</h2>
+<ul>
+  <li *ngFor="let book of books">
+    <strong>{{ book.title }}</strong> by {{ book.author }}
+  </li>
+</ul>
