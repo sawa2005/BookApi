@@ -1,0 +1,11 @@
+<nav class="navbar">
+  <a
+    routerLink="/"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >Home</a
+  >
+  <a *ngIf="!isLoggedIn" routerLink="/login" routerLinkActive="active">Login</a>
+  <a routerLink="/books" routerLinkActive="active">Books</a>
+  <a routerLink="/quotes" routerLinkActive="active">Quotes</a>
+</nav>

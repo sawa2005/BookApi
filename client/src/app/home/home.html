@@ -1,6 +1,34 @@
+<h2>Add Book</h2>
+<p *ngIf="!isLoggedIn">You need to be logged in.</p>
+<form *ngIf="isLoggedIn" [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+  <label>
+    Title:
+    <input type="text" formControlName="title" />
+  </label>
+  <br />
+
+  <label>
+    Author:
+    <input type="text" formControlName="author" />
+  </label>
+  <br />
+
+  <label>
+    Publishing Date:
+    <input type="date" formControlName="publishingDate" />
+  </label>
+  <br />
+
+  <button type="submit" [disabled]="bookForm.invalid">Add Book</button>
+</form>
+
+<hr />
+
 <h2>Books</h2>
 <ul>
   <li *ngFor="let book of books">
     <strong>{{ book.title }}</strong> by {{ book.author }}
+    <br />
+    Published on: {{ book.publishingDate | date: 'longDate' }}
   </li>
 </ul>
