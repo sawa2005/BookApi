@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -9,14 +10,17 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   login(credentials: { username: string; password: string }) {
-    return this.http.post<{ token: string }>(
-      `${this.apiUrl}/login`,
-      credentials
-    );
-  }
-
-  saveToken(token: string) {
-    localStorage.setItem('token', token);
+    return this.http
+      .post<{ token: string; expiration: string }>(
+        `${this.apiUrl}/login`,
+        credentials
+      )
+      .pipe(
+        tap((response) => {
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('expiration', response.expiration);
+        })
+      );
   }
 
   getToken(): string | null {
@@ -25,10 +29,26 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('expiration');
     this.router.navigate(['/login']);
   }
 
   isLoggedIn(): boolean {
-    return !!this.getToken();
+    const token = this.getToken();
+    const expiration = localStorage.getItem('expiration');
+
+    if (!token || !expiration) {
+      return false;
+    }
+
+    const expiresAt = new Date(expiration).getTime();
+    const now = Date.now();
+
+    if (now > expiresAt) {
+      this.logout(); // Token expired, log out
+      return false;
+    }
+
+    return true; // Token is valid
   }
 }

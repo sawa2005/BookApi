@@ -22,8 +22,7 @@ export class Login {
     this.auth
       .login({ username: this.username, password: this.password })
       .subscribe({
-        next: (res) => {
-          this.auth.saveToken(res.token);
+        next: () => {
           this.router.navigate(['/']);
         },
         error: () => {

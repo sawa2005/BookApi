@@ -5,7 +5,14 @@
     [routerLinkActiveOptions]="{ exact: true }"
     >Home</a
   >
-  <a *ngIf="!isLoggedIn" routerLink="/login" routerLinkActive="active">Login</a>
   <a routerLink="/books" routerLinkActive="active">Books</a>
   <a routerLink="/quotes" routerLinkActive="active">Quotes</a>
+
+  <ng-container *ngIf="isLoggedIn; else guestLinks">
+    <a (click)="logout()" href="#">Logout</a>
+  </ng-container>
+
+  <ng-template #guestLinks>
+    <a routerLink="/login" routerLinkActive="active">Login</a>
+  </ng-template>
 </nav>
