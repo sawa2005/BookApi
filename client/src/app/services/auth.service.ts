@@ -19,6 +19,7 @@ export class AuthService {
         tap((response) => {
           localStorage.setItem('token', response.token);
           localStorage.setItem('expiration', response.expiration);
+          localStorage.setItem('username', credentials.username);
         })
       );
   }
@@ -31,9 +32,14 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  getUsername(): string | null {
+    return localStorage.getItem('username');
+  }
+
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
+    localStorage.removeItem('username');
     this.router.navigate(['/login']);
   }
 

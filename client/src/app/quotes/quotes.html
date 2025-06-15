@@ -1,1 +1,37 @@
-<p>quotes works!</p>
+<div class="quotes-page">
+  <h2>Your Favorite Quotes</h2>
+
+  <!-- Add Quote Form -->
+  <form [formGroup]="quoteForm" (ngSubmit)="addQuote()">
+    <div>
+      <label for="quoteText">New Quote:</label>
+      <input
+        id="quoteText"
+        type="text"
+        formControlName="text"
+        placeholder="Enter your favorite quote"
+      />
+    </div>
+    <button
+      type="submit"
+      [disabled]="
+        quoteForm.invalid || quotes.length >= 5
+      "
+    >
+      Add Quote
+    </button>
+    <p *ngIf="quotes.length >= 5" class="limit-warning">
+      You can only save up to 5 quotes.
+    </p>
+  </form>
+
+  <!-- List of Quotes -->
+  <ul class="quotes-list">
+    <li *ngFor="let quote of quotes">
+      <span>{{ quote.text }}</span>
+      <button (click)="deleteQuote(quote.id)">Delete</button>
+    </li>
+  </ul>
+
+  <p *ngIf="quotes.length === 0">You have no saved quotes yet.</p>
+</div>

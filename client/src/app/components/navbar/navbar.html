@@ -9,6 +9,7 @@
   <a routerLink="/quotes" routerLinkActive="active">Quotes</a>
 
   <ng-container *ngIf="isLoggedIn; else guestLinks">
+    <p>Logged in as: {{ username }}</p>
     <a (click)="logout()" href="#">Logout</a>
   </ng-container>
 
