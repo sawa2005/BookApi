@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService, Book } from '../services/book.service';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-books',
@@ -13,7 +14,14 @@ import { CommonModule } from '@angular/common';
 export class Books implements OnInit {
   books: Book[] = [];
 
-  constructor(private bookService: BookService) {}
+  constructor(
+    private bookService: BookService,
+    private authService: AuthService
+  ) {}
+
+  get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
 
   ngOnInit() {
     this.bookService.getBooks().subscribe({

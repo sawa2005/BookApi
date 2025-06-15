@@ -25,6 +25,7 @@
 <hr />
 
 <h2>Books</h2>
+<p *ngIf="!isLoggedIn">You need to be logged in.</p>
 <ul>
   <li *ngFor="let book of books">
     <div *ngIf="editingId !== book.id">
