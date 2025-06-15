@@ -43,7 +43,7 @@ public class AuthController : ControllerBase
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
-        return Ok("User registered successfully");
+        return Ok(new { message = "User registered successfully" });
     }
 
     [HttpPost("login")]
@@ -52,12 +52,12 @@ public class AuthController : ControllerBase
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == login.Username);
         if (user == null)
         {
-            return Unauthorized("Invalid username");
+            return Unauthorized(new { message = "Invalid username" });
         }
 
         if (!VerifyPassword(login.Password, user.PasswordHash, user.PasswordSalt))
         {
-            return Unauthorized("Invalid password");
+            return Unauthorized(new { message = "Invalid password" });
         }
 
         var claims = new[]
