@@ -66,7 +66,15 @@ public class AuthController : ControllerBase
             , new Claim("id", user.Id.ToString())
         };
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
+        var jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET") ?? _configuration["Jwt:Key"];
+
+        if (string.IsNullOrEmpty(jwtSecret))
+        {
+            return StatusCode(500, new { message = "JWT secret not configured." });
+        }
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret));
+
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
