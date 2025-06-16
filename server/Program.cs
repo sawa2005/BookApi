@@ -103,7 +103,7 @@ var app = builder.Build();
 app.Use(async (context, next) =>
 {
     var allowedOrigins = new[] { "http://localhost:4200", "https://bookclient-4txh.onrender.com" };
-    var origin = context.Request.Headers["Origin"].ToString();
+    var origin = context.Request.Headers.Origin.ToString();
 
     if (!string.IsNullOrEmpty(origin) && allowedOrigins.Contains(origin))
     {
