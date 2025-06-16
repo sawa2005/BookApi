@@ -11,7 +11,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:4200") // your Angular dev URL
+        policy.WithOrigins("http://localhost:4200",
+              "https://bookclient-4txh.onrender.com"
+              )
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
