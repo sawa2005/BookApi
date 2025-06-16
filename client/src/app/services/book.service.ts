@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Book {
   id: number;
@@ -14,7 +15,8 @@ export interface Book {
 })
 export class BookService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:5255/api/Books';
+  private baseUrl = environment.apiUrl;
+  private apiUrl = `${this.baseUrl}/Books`;
 
   getBooks(): Observable<Book[]> {
     return this.http.get<Book[]>(this.apiUrl);

@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Quote {
   id: number;
@@ -12,7 +13,8 @@ export interface Quote {
 })
 export class QuoteService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:5255/api/Quotes';
+  private baseUrl = environment.apiUrl;
+  private apiUrl = `${this.baseUrl}/Quotes`;
 
   getQuotes(): Observable<Quote[]> {
     return this.http.get<Quote[]>(this.apiUrl);
