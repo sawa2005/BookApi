@@ -14,7 +14,7 @@ client/dist/
 
 ## Secrets and config overrides
 .env
-appsettings*.json
+appsettings.Development.json
 
 ## Other generated or cache folders
 **/Properties/launchSettings.json
