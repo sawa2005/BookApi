@@ -42,6 +42,18 @@ var key = Encoding.UTF8.GetBytes(jwtSecret);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.Events = new JwtBearerEvents
+        {
+            OnChallenge = context =>
+            {
+                context.HandleResponse(); // prevent default 401 response
+                context.Response.StatusCode = 401;
+                context.Response.Headers.Append("Access-Control-Allow-Origin", "https://bookclient-4txh.onrender.com");
+                // add other CORS headers as needed
+                return Task.CompletedTask;
+            }
+        };
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = false,
