@@ -8,6 +8,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { BookService, Book } from '../services/book.service';
+import { ThemeService } from '../services/theme.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-edit-book',
@@ -19,13 +21,14 @@ import { BookService, Book } from '../services/book.service';
 export class EditBook implements OnInit {
   editForm!: FormGroup;
   bookId!: number;
-  editingId: number | null = null;
+  darkMode$!: Observable<boolean>;
 
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private bookService: BookService,
-    public router: Router
+    public router: Router,
+    public themeService: ThemeService
   ) {}
 
   ngOnInit() {
@@ -39,6 +42,8 @@ export class EditBook implements OnInit {
     this.bookService.getBookById(this.bookId).subscribe((book) => {
       this.editForm.patchValue(book);
     });
+
+    this.darkMode$ = this.themeService.darkMode$;
   }
 
   onSubmit() {

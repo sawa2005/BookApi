@@ -1,5 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --bs-body-bg: #ffffff;
+  --bs-body-color: #212529;
+  --bs-navbar-bg: #f8f9fa;
+}
+
+body.dark-mode {
+  --bs-body-bg: #212529;
+  --bs-body-color: #f8f9fa;
+  --bs-navbar-bg: #343a40;
+  background-color: var(--bs-body-bg) !important;
+  color: var(--bs-body-color) !important;
+}
+
 body {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
   font-family: "DM Sans", sans-serif;
 }
 

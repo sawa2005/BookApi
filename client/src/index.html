@@ -18,8 +18,15 @@
       rel="stylesheet"
     />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <script>
+      const isDark = localStorage.getItem("isDarkMode") === "true";
+      if (isDark) {
+        document.documentElement.classList.add("dark-mode");
+        document.body.classList.add("dark-mode");
+      }
+    </script>
   </head>
-  <body>
+  <body class="" id="body">
     <app-root></app-root>
   </body>
   <!-- Bootstrap JS (required for the navbar toggle to work) -->
