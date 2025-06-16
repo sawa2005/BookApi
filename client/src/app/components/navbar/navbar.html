@@ -1,11 +1,25 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light px-3">
   <a class="navbar-brand" routerLink="/">📚 book & quotes</a>
 
-  <div class="collapse navbar-collapse">
-    <ul class="navbar-nav me-auto">
-      <li class="nav-item">
+  <!-- Toggler for mobile -->
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
+      <li class="nav-item d-flex align-items-center">
         <a
-          class="nav-link"
+          class="nav-link d-flex align-items-center gap-2 w-max-content"
           routerLink="/"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
@@ -13,29 +27,51 @@
           <i class="fas fa-home"></i> Home
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/books" routerLinkActive="active">
+      <li class="nav-item d-flex align-items-center">
+        <a
+          class="nav-link d-flex align-items-center gap-2 w-max-content"
+          routerLink="/books"
+          routerLinkActive="active"
+        >
           <i class="fas fa-book"></i> Add Books
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/quotes" routerLinkActive="active">
+      <li class="nav-item d-flex flex-column">
+        <a
+          class="nav-link d-flex align-items-center gap-2 w-max-content"
+          routerLink="/quotes"
+          routerLinkActive="active"
+        >
           <i class="fas fa-quote-right"></i> Quotes
         </a>
       </li>
     </ul>
 
-    <div class="d-flex align-items-center">
+    <div
+      class="d-flex align-items-center justify-content-between flex-column flex-lg-row mt-lg-0"
+    >
       <ng-container *ngIf="isLoggedIn; else guestLinks">
-        <span class="me-3 text-muted">👤 {{ username }}</span>
-        <a class="btn btn-outline-danger btn-sm" (click)="logout()" href="#"
-          ><i class="fas fa-sign-out-alt"></i> Logout</a
+        <div
+          class="d-flex justify-content-between w-100 align-items-center gap-2 mb-2 mb-lg-0"
         >
+          <span class="text-muted me-2 h-100">
+            <i class="fas fa-user-circle"></i> {{ username }}
+          </span>
+          <a class="btn btn-outline-danger btn-sm" (click)="logout()" href="#">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </div>
       </ng-container>
 
       <ng-template #guestLinks>
-        <a class="btn btn-outline-primary me-2" routerLink="/login">Login</a>
-        <a class="btn btn-outline-success" routerLink="/register">Register</a>
+        <div class="d-flex gap-2 justify-content-end w-100">
+          <a class="btn btn-outline-primary btn-sm" routerLink="/login"
+            >Login</a
+          >
+          <a class="btn btn-outline-success btn-sm" routerLink="/register"
+            >Register</a
+          >
+        </div>
       </ng-template>
     </div>
   </div>
