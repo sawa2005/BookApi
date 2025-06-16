@@ -100,6 +100,30 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
+app.Use(async (context, next) =>
+{
+    var allowedOrigins = new[] { "http://localhost:4200", "https://bookclient-4txh.onrender.com" };
+    var origin = context.Request.Headers["Origin"].ToString();
+
+    if (!string.IsNullOrEmpty(origin) && allowedOrigins.Contains(origin))
+    {
+        context.Response.Headers.Append("Access-Control-Allow-Origin", origin);
+        context.Response.Headers.Append("Access-Control-Allow-Credentials", "true");
+        context.Response.Headers.Append("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        context.Response.Headers.Append("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    }
+
+    // Handle OPTIONS requests (preflight)
+    if (context.Request.Method == "OPTIONS")
+    {
+        context.Response.StatusCode = 204; // No Content
+        return;
+    }
+
+    await next();
+});
+
+
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
