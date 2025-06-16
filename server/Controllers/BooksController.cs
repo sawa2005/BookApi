@@ -20,6 +20,14 @@ public class BooksController : ControllerBase
     [HttpGet]
     public IActionResult GetAll() => Ok(_context.Books.ToList());
 
+    [HttpGet("{id}")]
+    public IActionResult GetById(int id)
+    {
+        var book = _context.Books.Find(id);
+        if (book == null) return NotFound();
+        return Ok(book);
+    }
+
     [HttpPost]
     public IActionResult Create(Book book)
     {

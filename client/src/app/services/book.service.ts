@@ -20,6 +20,10 @@ export class BookService {
     return this.http.get<Book[]>(this.apiUrl);
   }
 
+  getBookById(id: number) {
+    return this.http.get<Book>(`${this.apiUrl}/${id}`);
+  }
+
   addBook(book: Book) {
     return this.http.post<Book>(`${this.apiUrl}`, book);
   }

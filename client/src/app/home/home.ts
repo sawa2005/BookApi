@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService, Book } from '../services/book.service';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import {
   ReactiveFormsModule,
@@ -12,7 +13,7 @@ import {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './home.html',
   styleUrl: './home.scss',
   providers: [BookService],
@@ -21,7 +22,6 @@ export class Home implements OnInit {
   books: Book[] = [];
   editForm: FormGroup;
   editingId: number | null = null;
-  bookForm: FormGroup;
 
   constructor(
     private bookService: BookService,
@@ -33,13 +33,6 @@ export class Home implements OnInit {
       title: [''],
       author: [''],
       publishingDate: [''],
-    });
-
-    // Initialize bookForm with validation
-    this.bookForm = this.fb.group({
-      title: ['', Validators.required],
-      author: ['', Validators.required],
-      publishingDate: ['', Validators.required],
     });
   }
 
@@ -90,18 +83,5 @@ export class Home implements OnInit {
     if (confirm('Are you sure you want to delete this book?')) {
       this.bookService.deleteBook(id).subscribe(() => this.loadBooks());
     }
-  }
-
-  onSubmit() {
-    if (this.bookForm.invalid) return;
-
-    const newBook = this.bookForm.value as Book;
-    this.bookService.addBook(newBook).subscribe({
-      next: (book) => {
-        this.books.push(book);
-        this.bookForm.reset();
-      },
-      error: (err) => console.error('Error adding book:', err),
-    });
   }
 }

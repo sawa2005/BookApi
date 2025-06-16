@@ -1,20 +1,42 @@
-<nav class="navbar">
-  <a
-    routerLink="/"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-    >Home</a
-  >
-  <a routerLink="/books" routerLinkActive="active">Books</a>
-  <a routerLink="/quotes" routerLinkActive="active">Quotes</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light px-3">
+  <a class="navbar-brand" routerLink="/">📚 book & quotes</a>
 
-  <ng-container *ngIf="isLoggedIn; else guestLinks">
-    <p>Logged in as: {{ username }}</p>
-    <a (click)="logout()" href="#">Logout</a>
-  </ng-container>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav me-auto">
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <i class="fas fa-home"></i> Home
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/books" routerLinkActive="active">
+          <i class="fas fa-book"></i> Add Books
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/quotes" routerLinkActive="active">
+          <i class="fas fa-quote-right"></i> Quotes
+        </a>
+      </li>
+    </ul>
 
-  <ng-template #guestLinks>
-    <a routerLink="/login" routerLinkActive="active">Login</a>
-    <a routerLink="/register" routerLinkActive="active">Register</a>
-  </ng-template>
+    <div class="d-flex align-items-center">
+      <ng-container *ngIf="isLoggedIn; else guestLinks">
+        <span class="me-3 text-muted">👤 {{ username }}</span>
+        <a class="btn btn-outline-danger btn-sm" (click)="logout()" href="#"
+          ><i class="fas fa-sign-out-alt"></i> Logout</a
+        >
+      </ng-container>
+
+      <ng-template #guestLinks>
+        <a class="btn btn-outline-primary me-2" routerLink="/login">Login</a>
+        <a class="btn btn-outline-success" routerLink="/register">Register</a>
+      </ng-template>
+    </div>
+  </div>
 </nav>

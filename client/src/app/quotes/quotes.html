@@ -1,37 +1,49 @@
 <div class="quotes-page">
-  <h2>Your Favorite Quotes</h2>
+  <h1>Quotes</h1>
+  <p>Here you can add up to 5 of your favorite quotes.</p>
+  <div *ngIf="!isLoggedIn" class="alert alert-warning">
+    You need to be logged in.
+  </div>
+  <div *ngIf="isLoggedIn">
+    <form [formGroup]="quoteForm" (ngSubmit)="addQuote()" class="mb-4">
+      <div class="input-group">
+        <input
+          type="text"
+          formControlName="text"
+          class="form-control"
+          placeholder="Enter a quote"
+        />
+        <button
+          class="btn btn-success"
+          type="submit"
+          [disabled]="quoteForm.invalid || quotes.length >= 5"
+        >
+          <i class="fas fa-plus"></i> Add Quote
+        </button>
+      </div>
+      <small *ngIf="quotes.length >= 5" class="text-danger d-block mt-2">
+        You can only save up to 5 quotes.
+      </small>
+    </form>
 
-  <!-- Add Quote Form -->
-  <form [formGroup]="quoteForm" (ngSubmit)="addQuote()">
-    <div>
-      <label for="quoteText">New Quote:</label>
-      <input
-        id="quoteText"
-        type="text"
-        formControlName="text"
-        placeholder="Enter your favorite quote"
-      />
-    </div>
-    <button
-      type="submit"
-      [disabled]="
-        quoteForm.invalid || quotes.length >= 5
-      "
-    >
-      Add Quote
-    </button>
-    <p *ngIf="quotes.length >= 5" class="limit-warning">
-      You can only save up to 5 quotes.
+    <h2>Your Favorite Quotes</h2>
+    <ul class="list-group">
+      <li
+        *ngFor="let quote of quotes"
+        class="list-group-item d-flex justify-content-between align-items-center"
+      >
+        {{ quote.text }}
+        <button
+          class="btn btn-sm btn-outline-danger"
+          (click)="deleteQuote(quote.id)"
+        >
+          <i class="fas fa-trash"></i>
+        </button>
+      </li>
+    </ul>
+
+    <p *ngIf="quotes.length === 0" class="mt-3 text-muted">
+      You have no saved quotes yet.
     </p>
-  </form>
-
-  <!-- List of Quotes -->
-  <ul class="quotes-list">
-    <li *ngFor="let quote of quotes">
-      <span>{{ quote.text }}</span>
-      <button (click)="deleteQuote(quote.id)">Delete</button>
-    </li>
-  </ul>
-
-  <p *ngIf="quotes.length === 0">You have no saved quotes yet.</p>
+  </div>
 </div>

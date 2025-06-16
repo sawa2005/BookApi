@@ -1,54 +1,31 @@
-<h2>Add Book</h2>
-<p *ngIf="!isLoggedIn">You need to be logged in.</p>
-<form *ngIf="isLoggedIn" [formGroup]="bookForm" (ngSubmit)="onSubmit()">
-  <label>
-    Title:
-    <input type="text" formControlName="title" />
-  </label>
-  <br />
-
-  <label>
-    Author:
-    <input type="text" formControlName="author" />
-  </label>
-  <br />
-
-  <label>
-    Publishing Date:
-    <input type="date" formControlName="publishingDate" />
-  </label>
-  <br />
-
-  <button type="submit" [disabled]="bookForm.invalid">Add Book</button>
-</form>
-
-<hr />
-
-<h2>Books</h2>
-<p *ngIf="!isLoggedIn">You need to be logged in.</p>
-<ul>
-  <li *ngFor="let book of books">
-    <div *ngIf="editingId !== book.id">
-      <strong>{{ book.title }}</strong> by {{ book.author }}
-      <br />
-      Published on: {{ book.publishingDate | date: 'longDate' }}
-      <span *ngIf="isLoggedIn">
-        <button (click)="startEdit(book)">Edit</button>
-        <button (click)="deleteBook(book.id)">Delete</button>
-      </span>
-    </div>
-
-    <!-- Reactive edit form -->
-    <form
-      *ngIf="editingId === book.id"
-      [formGroup]="editForm"
-      (ngSubmit)="saveEdit()"
-    >
-      <input formControlName="title" placeholder="Title" />
-      <input formControlName="author" placeholder="Author" />
-      <input type="date" formControlName="publishingDate" />
-      <button type="submit">Save</button>
-      <button type="button" (click)="cancelEdit()">Cancel</button>
-    </form>
-  </li>
-</ul>
+<h1>Home</h1>
+<p>Welcome to the Book & Quotes Management System!</p>
+<div *ngIf="!isLoggedIn" class="alert alert-warning">
+  You need to be logged in.
+</div>
+<div *ngIf="isLoggedIn">
+  <h2>Books</h2>
+  <ul>
+    <li *ngFor="let book of books">
+      <div *ngIf="editingId !== book.id">
+        <strong>{{ book.title }}</strong> by {{ book.author }}
+        <br />
+        Published on: {{ book.publishingDate | date: 'longDate' }}
+        <span>
+          <a
+            [routerLink]="['/edit-book', book.id]"
+            class="btn btn-sm btn-outline-primary me-2"
+          >
+            <i class="fas fa-edit"></i> Edit
+          </a>
+          <button
+            class="btn btn-sm btn-outline-danger"
+            (click)="deleteBook(book.id)"
+          >
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>

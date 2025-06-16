@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <h2>Edit Book</h2>
+  <form
+    [formGroup]="editForm"
+    (ngSubmit)="onSubmit()"
+    class="mt-3 p-3 border rounded bg-light"
+  >
+    <div class="mb-2">
+      <label>Title</label>
+      <input type="text" formControlName="title" class="form-control" />
+    </div>
+
+    <div class="mb-2">
+      <label>Author</label>
+      <input type="text" formControlName="author" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label>Publishing Date</label>
+      <input
+        type="date"
+        formControlName="publishingDate"
+        class="form-control"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-success me-2">
+      <i class="fas fa-save"></i> Save
+    </button>
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="router.navigate(['/books'])"
+    >
+      <i class="fas fa-arrow-left"></i> Cancel
+    </button>
+  </form>
+</div>

@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-quotes',
@@ -20,7 +21,11 @@ export class Quotes implements OnInit {
   quoteForm: FormGroup;
   error = '';
 
-  constructor(private quoteService: QuoteService, private fb: FormBuilder) {
+  constructor(
+    private quoteService: QuoteService,
+    private fb: FormBuilder,
+    private authService: AuthService
+  ) {
     this.quoteForm = this.fb.group({
       text: ['', Validators.required],
     });
@@ -28,6 +33,10 @@ export class Quotes implements OnInit {
 
   ngOnInit() {
     this.loadQuotes();
+  }
+
+  get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
   }
 
   loadQuotes() {
