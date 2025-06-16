@@ -15,7 +15,8 @@ builder.Services.AddCors(options =>
               "https://bookclient-4txh.onrender.com"
               )
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .AllowCredentials();
     });
 });
 
