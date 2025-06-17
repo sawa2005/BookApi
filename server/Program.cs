@@ -43,18 +43,6 @@ var key = Encoding.UTF8.GetBytes(jwtSecret);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.Events = new JwtBearerEvents
-        {
-            OnChallenge = context =>
-            {
-                context.HandleResponse(); // prevent default 401 response
-                context.Response.StatusCode = 401;
-                context.Response.Headers.Append("Access-Control-Allow-Origin", "https://bookclient-4txh.onrender.com");
-                // add other CORS headers as needed
-                return Task.CompletedTask;
-            }
-        };
-
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = false,
@@ -100,46 +88,27 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-app.Use(async (context, next) =>
-{
-    var allowedOrigins = new[] { "http://localhost:4200", "https://bookclient-4txh.onrender.com" };
-    var origin = context.Request.Headers.Origin.ToString();
-
-    if (!string.IsNullOrEmpty(origin) && allowedOrigins.Contains(origin))
-    {
-        context.Response.Headers.Append("Access-Control-Allow-Origin", origin);
-        context.Response.Headers.Append("Access-Control-Allow-Credentials", "true");
-        context.Response.Headers.Append("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        context.Response.Headers.Append("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    }
-
-    // Handle OPTIONS requests (preflight)
-    if (context.Request.Method == "OPTIONS")
-    {
-        context.Response.StatusCode = 204; // No Content
-        return;
-    }
-
-    await next();
-});
-
-
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     db.Database.Migrate();
 }
 
-if (app.Environment.IsDevelopment())
+/* if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+} */
 
 app.UseCors("AllowFrontend");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseDefaultFiles(); // Serves index.html
+app.UseStaticFiles();  // Enables static file serving from wwwroot
+app.MapFallbackToFile("index.html"); // For Angular routing
+
 app.MapControllers();
 
 app.Run();

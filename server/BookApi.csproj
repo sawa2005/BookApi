@@ -4,7 +4,17 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <StaticWebAssetsEnabled>true</StaticWebAssetsEnabled>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ClientDistFiles Include="..\client\dist\client\**\*" />
+  </ItemGroup>
+
+  <Target Name="CopyAngularBuild" AfterTargets="Build">
+    <MakeDir Directories="wwwroot" />
+    <Copy SourceFiles="@(ClientDistFiles)" DestinationFolder="wwwroot\%(RecursiveDir)" />
+  </Target>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
