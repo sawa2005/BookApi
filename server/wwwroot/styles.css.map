@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/styles.scss"],
-  "sourcesContent": ["/* You can add global styles to this file, and also import other style files */\r\n\r\n:root {\r\n  --bs-body-bg: #ffffff;\r\n  --bs-body-color: #212529;\r\n  --bs-navbar-bg: #f8f9fa;\r\n}\r\n\r\nbody.dark-mode {\r\n  --bs-body-bg: #212529;\r\n  --bs-body-color: #f8f9fa;\r\n  --bs-navbar-bg: #343a40;\r\n  background-color: var(--bs-body-bg) !important;\r\n  color: var(--bs-body-color) !important;\r\n}\r\n\r\nbody {\r\n  background-color: var(--bs-body-bg);\r\n  color: var(--bs-body-color);\r\n  font-family: \"DM Sans\", sans-serif;\r\n}\r\n\r\n.w-max-content {\r\n  width: max-content !important;\r\n}\r\n"],
-  "mappings": ";AAEA;AACE,gBAAA;AACA,mBAAA;AACA,kBAAA;;AAGF,IAAA,CAAA;AACE,gBAAA;AACA,mBAAA;AACA,kBAAA;AACA,oBAAA,IAAA;AACA,SAAA,IAAA;;AAGF;AACE,oBAAA,IAAA;AACA,SAAA,IAAA;AACA,eAAA,SAAA,EAAA;;AAGF,CAAA;AACE,SAAA;;",
-  "names": []
-}
